@@ -10,11 +10,11 @@ echo "Starting Setup Pipeline"
 echo "========================================================"
 
 # Check for API Key
-if [ "$OPENAI_KEY_CHECK" == "NOT_SET" ]; then
-    echo "ERROR: OPENAI_API_KEY is not set!"
-    echo "Please pass it when running docker: -e OPENAI_API_KEY='sk-...'"
-    exit 1
-fi
+# if [ "$OPENAI_KEY_CHECK" == "NOT_SET" ]; then
+#     echo "ERROR: OPENAI_API_KEY is not set!"
+#     echo "Please pass it when running docker: -e OPENAI_API_KEY='sk-...'"
+#     exit 1
+# fi
 
 # Go to the Repo Directory
 if [ ! -d "$REPO_DIR" ]; then

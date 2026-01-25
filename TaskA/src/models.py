@@ -2,7 +2,7 @@ from transformers import AutoTokenizer, BertForMaskedLM, \
                          BartForConditionalGeneration, \
                          T5Tokenizer, T5ForConditionalGeneration, \
                          BloomForCausalLM, BloomTokenizerFast, \
-                         LlamaForCausalLM
+                         LlamaForCausalLM, MistralForCausalLM
 import torch
 import openai
 import time
@@ -211,6 +211,25 @@ class LLaMADecoderLM(EncoderDecoderLM):
         pred = pred.replace(kwargs['prompt'], "")
         return pred
 
+class MistralDecoderLM(EncoderDecoderLM):
+    def __init__(self, config) -> None:
+        super().__init__(config)
+
+    def load(self):
+        self.tokenizer = AutoTokenizer.from_pretrained(self.config.model_path)
+        self.tokenizer.pad_token = self.tokenizer.eos_token
+        self.model = MistralForCausalLM.from_pretrained(self.config.model_path,
+                                                         load_in_8bit=False,
+                                                         torch_dtype=torch.float16,
+                                                         device_map="balanced")
+        print(f"Loaded MistralForCausalLM from {self.config.model_path}")
+        # self.model.to(self.device)
+        self.model.eval()
+
+    def output_cleaner(self, pred, **kwargs):
+        pred = pred.replace(kwargs['prompt'], "")
+        return pred
+
 
 class Left2RightOnlineLM(BaseLM):
 
@@ -295,7 +314,8 @@ class InferenceFactory:
             "bloom_1b7": BLOOMDecoderLM,
             "bloom_3b": BLOOMDecoderLM,
             "gpt3": Left2RightOnlineLM,
-            "llama_7b": LLaMADecoderLM,
+            "llama_7b": MistralDecoderLM,  # Replaced with Mistral for open-access
+            "mistral_7b": MistralDecoderLM,
             "gpt4": GPT4Left2RightOnlineLM,
             "chatgpt": ChatGPTLeft2RightOnlineLM
         }

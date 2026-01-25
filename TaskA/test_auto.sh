@@ -4,7 +4,7 @@ label="nofinetuning"
 device="cpu"
 datasets=("wn18rr" "geonames" "nci" "snomedct_us" "medcin")
 templates=("template-1" "template-2" "template-3" "template-4" "template-5" "template-6" "template-7" "template-8")
-models=("bert_large" "bart_large" "flan_t5_large" "flan_t5_xl" "bloom_1b7" "bloom_3b" "llama_7b")
+models=("bert_large" "bart_large" "flan_t5_large" "flan_t5_xl" "bloom_1b7" "bloom_3b" "mistral_7b")
 
 for kb_name in "${datasets[@]}"; do
   index=1

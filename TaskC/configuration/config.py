@@ -113,8 +113,12 @@ class BaseConfig:
             self.parser.add_argument("--model_path", type=str, default=f"{self.llms_root_dir}/bloom-7b1")
             self.parser.add_argument("--model_name", type=str, default="bloom")
         if model == "llama_7b":
-            self.parser.add_argument("--model_path", type=str, default=f"{self.llms_root_dir}/llama-7b")
-            self.parser.add_argument("--model_name", type=str, default="llama")
+            # Replaced with open-access Mistral-7B to avoid gated model requirements
+            self.parser.add_argument("--model_path", type=str, default="mistralai/Mistral-7B-v0.1")
+            self.parser.add_argument("--model_name", type=str, default="mistral")
+        if model == "mistral_7b":
+            self.parser.add_argument("--model_path", type=str, default="mistralai/Mistral-7B-v0.1")
+            self.parser.add_argument("--model_name", type=str, default="mistral")
         if model == dataset.lower()+"_flan_t5_large":
             self.parser.add_argument("--model_path", type=str, default=f"../assets/FSL/{dataset.lower()}-flan-t5-large")
             self.parser.add_argument("--model_name", type=str, default="t5")

@@ -9,10 +9,8 @@ RUN apt-get update && \
 USER $NB_UID
 WORKDIR /home/jovyan
 
-# Clone the repo
-# RUN git clone https://github.com/HamedBabaei/LLMs4OL.git
-# Temporary until repo is merged
-RUN git clone https://github.com/YucelClk/LLMs4OL.git
+# Copy the entire repository into the container
+COPY --chown=$NB_UID:$NB_GID . /home/jovyan/LLMs4OL
 
 WORKDIR /home/jovyan/LLMs4OL
 

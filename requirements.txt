@@ -5,7 +5,7 @@ pathlib
 scikit-learn
 numpy
 torch
-transformers==4.28.1
+transformers==4.38.2
 sentencepiece==0.2.0
 nltk
 datasets
